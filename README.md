@@ -4,12 +4,14 @@ This is basic concept for `service registry` and `discovery` if you want more co
 
 ## Benefit Using Consul
 
-- [X] Monitoring service is health or unhealth 
-- [X] Auto failover with cross server when one of service is dead 
-- [X] Network security communication using tls encryption
-- [X] Discovery & Registry service, you can find service using id or name
-- [x] Management access control, like A allow connect to B and C deny connecto to A 
-- [X] You can use Load Balancing, Rate Limit, Circuit Bracker etc
+- [x] Monitoring service is health or unhealth 
+- [x] Auto failover with cross server when one of service is dead, you can using `pairing feature`
+- [x] Network security communication using tls encryption
+- [x] Discovery & Registry service, you can find service using id or name
+- [x] Management access control using `acl feature`, like A allow connect to B and C deny connecto to A 
+- [x] You can use Load Balancing, Rate Limit, Circuit Bracker etc
+- [x] Cross cloud platform support like aws, gcp, azure etc and container like `docker` or `kubernetes` for production and complex use case , use `kubernetes` recommended
+- [x] Etc 
 
 ## Simple Sample Policy
 

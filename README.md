@@ -1,6 +1,6 @@
 # Golang Service Discovery
 
-This is basic concept for `service registry` and `discovery` if you want more complex use case , you can check this [video tutorial](https://www.youtube.com/watch?v=s3I1kKKfjtQ) 
+This is basic concept for `service registry` and `discovery` if you want more complex use case , you can check this [video tutorial](https://www.youtube.com/watch?v=s3I1kKKfjtQ) or you can buy this [e-book](https://www.amazon.com/Consul-Up-Running-Luke-Kysow-ebook/dp/B0B2ZHXLCV) from amazon.
 
 ## Benefit Using Consul
 

@@ -1,6 +1,6 @@
 datacenter           = "dc-jakarta"
-node_name            = "node-jakarta-01"
-data_dir             = "/Users/restuwahyusaputra/.consul"
+node_name            = "node-jakarta"
+data_dir             = "/consul/data"
 server               = true
 enable_debug         = true
 enable_script_checks = true
@@ -46,8 +46,8 @@ acl {
 
 tls {
   defaults = {
-    cert_file       = "/Users/restuwahyusaputra/.self_signed/cert.crt"
-    key_file        = "/Users/restuwahyusaputra/.self_signed/key.key"
+    cert_file       = "/consul/cert.crt"
+    key_file        = "/consul/key.key"
     verify_incoming = false
   }
 }
@@ -57,14 +57,14 @@ service {
   id      = "dev-discovery-api"
   name    = "dev-discovery-api"
   tags    = ["api", "discovery", "dev"]
-  address = "127.0.0.1"
+  address = "api"
   port    = 5000
   checks = [
     {
       id              = "dev-discovery-api-health"
       name            = "dev-discovery-api-health"
       method          = "GET"
-      http            = "http://127.0.0.1:5000/api/v1/ping"
+      http            = "http://api:5000/api/v1/ping"
       interval        = "1s"
       timeout         = "10s"
       tls_skip_verify = true

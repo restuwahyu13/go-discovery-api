@@ -18,7 +18,7 @@ ENV GO111MODULE="on" \
     CGO_ENABLED="1"
 
 WORKDIR /usr/src/${ROOT_DIR}
-COPY --chown=${USER_UID}:${USER_GID} . .
+COPY --chown=${USER_UID}:${USER_GID} . /usr/src/${ROOT_DIR}
 
 RUN apk update \
     && apk -u list \
@@ -37,7 +37,7 @@ USER ${USER_ACCOUNT}
 # RELEASE STEP APPLICATION ENVIRONMENT
 # =======================================
 
-FROM 705471/alpine:3.18 as release
+FROM 705471/alpine:3.18
 ARG ROOT_DIR=app
 ARG USER_ACCOUNT=linuxer
 ARG USER_UID=600
@@ -56,8 +56,9 @@ RUN mkdir /home/${USER_ACCOUNT} \
     && chown -R $USER_UID:$USER_GID /home/$USER_ACCOUNT
 
 RUN mkdir /home/${USER_ACCOUNT}/${ROOT_DIR}
-COPY --chown=${USER_UID}:${USER_GID} --from=build /usr/src/${ROOT_DIR}  /home/${USER_ACCOUNT}/${ROOT_DIR}
+COPY --chown=${USER_UID}:${USER_GID} --from=build /usr/src/${ROOT_DIR}/discovery /home/${USER_ACCOUNT}/${ROOT_DIR}
 RUN chmod -R 6744 /home/$USER_ACCOUNT
 
 USER ${USER_ACCOUNT}
-ENTRYPOINT ["./home/linuxer/app/bca"]
+EXPOSE 5000
+ENTRYPOINT ["./home/linuxer/app/discovery"]

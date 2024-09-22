@@ -1,0 +1,43 @@
+services:
+  api:
+    build: .
+    container_name: discovery-api
+    restart: always
+    healthcheck:
+      test: env | grep $HOME
+      timeout: 15s
+      interval: 5s
+      retries: 5
+    env_file: .env
+    ports:
+      - 5000:5000
+    networks:
+      - discovery-networks
+
+  consul:
+    image: hashicorp/consul
+    restart: always
+    command: consul agent -auto-reload-config -config-file='./consul/config/consul.hcl' -data-dir='/consul/data'
+    healthcheck:
+      test: env | grep $HOME
+      timeout: 15s
+      interval: 5s
+      retries: 5
+    ports:
+      - 8501:8501
+      - 8600:8600/udp
+    depends_on:
+      - api
+    networks:
+      - discovery-networks
+    volumes:
+      - consul-data:/consul/data
+      - ${PWD}/certificates:/consul
+      - ${PWD}/consul/config:/consul/config
+
+volumes:
+  consul-data:
+
+networks:
+  discovery-networks:
+    driver: bridge

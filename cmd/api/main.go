@@ -2,6 +2,7 @@ package main
 
 import (
 	"compress/zlib"
+	"net/http"
 	"os"
 	"runtime"
 
@@ -13,6 +14,7 @@ import (
 
 	"github.com/restuwahyu13/discovery-api/configs"
 	"github.com/restuwahyu13/discovery-api/handlers"
+	"github.com/restuwahyu13/discovery-api/helpers"
 	"github.com/restuwahyu13/discovery-api/middlewares"
 	"github.com/restuwahyu13/discovery-api/packages"
 	"github.com/restuwahyu13/discovery-api/services"
@@ -70,6 +72,10 @@ func main() {
 	handler := handlers.NewHandlerDiscovery(&handlers.HandlerDiscovery{Service: service})
 
 	router.Route("/api/v1", func(r chi.Router) {
+		r.Get("/ping", func(rw http.ResponseWriter, r *http.Request) {
+			helpers.ApiResponse(rw, &helpers.Response{StatCode: http.StatusOK, StatMsg: "Ping!"})
+		})
+
 		r.Group(func(rg chi.Router) {
 			rg.Post("/agent/service/register", handler.Register)
 			rg.Delete("/agent/service/deregister/{serviceId}", handler.Deregister)

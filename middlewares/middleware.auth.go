@@ -3,6 +3,7 @@ package middlewares
 import (
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/restuwahyu13/discovery-api/helpers"
 	"github.com/restuwahyu13/discovery-api/packages"
@@ -23,21 +24,23 @@ func AuthToken(next http.Handler) http.Handler {
 		asymmetric.ClientKey = r.Header.Get("X-CLIENT-KEY")
 		asymmetric.PrivateKey = r.Header.Get("X-PRIVATE-KEY")
 
-		if asymmetric.ClientID == "" || asymmetric.ClientKey == "" || asymmetric.PrivateKey == "" {
-			res.ErrCode = "UNAUTHORIZED"
-			res.ErrMsg = "Invalid credentials"
+		if !strings.Contains(r.URL.Path, "ping") {
+			if asymmetric.ClientID == "" || asymmetric.ClientKey == "" || asymmetric.PrivateKey == "" {
+				res.ErrCode = "UNAUTHORIZED"
+				res.ErrMsg = "Invalid credentials"
 
-			helpers.ApiResponse(rw, res)
-			return
-		}
+				helpers.ApiResponse(rw, res)
+				return
+			}
 
-		if err := rsa.Asymmetric(asymmetric, password); err != nil {
-			res.ErrCode = "UNAUTHORIZED"
-			res.ErrMsg = "Invalid credentials"
+			if err := rsa.Asymmetric(asymmetric, password); err != nil {
+				res.ErrCode = "UNAUTHORIZED"
+				res.ErrMsg = "Invalid credentials"
 
-			defer packages.Logrus("error", err)
-			helpers.ApiResponse(rw, res)
-			return
+				defer packages.Logrus("error", err)
+				helpers.ApiResponse(rw, res)
+				return
+			}
 		}
 
 		next.ServeHTTP(rw, r)

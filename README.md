@@ -2,7 +2,16 @@
 
 This is basic concept for `service registry` and `discovery` if you want more complex use case , you can check this [video tutorial](https://www.youtube.com/watch?v=s3I1kKKfjtQ) 
 
-# Simple Sample Policy
+## Benefit Using Consul
+
+- [X] Monitoring service is health or unhealth 
+- [X] Auto failover with cross server when one of service is dead 
+- [X] Network security communication using tls encryption
+- [X] Discovery & Registry service, you can find service using id or name
+- [x] Management access control, like A allow connect to B and C deny connecto to A 
+- [X] You can use Load Balancing, Rate Limit, Circuit Bracker etc
+
+## Simple Sample Policy
 
 ```hcl
 service_prefix "prod-service-" {
@@ -14,7 +23,7 @@ node_prefix "" {
 }
 ```
 
-# Full Sample Policy
+## Full Sample Policy
 
 ```hcl
 acl      = "write"

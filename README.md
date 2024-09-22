@@ -10,7 +10,7 @@ This is basic concept for `service registry` and `discovery` if you want more co
 - [x] Discovery & Registry service, you can find service using id or name
 - [x] Management access control using `acl feature`, like A allow connect to B and C deny connecto to A 
 - [x] You can use Load Balancing, Rate Limit, Circuit Bracker etc
-- [x] Cross cloud platform support like aws, gcp, azure etc and container like `docker` or `kubernetes` for production and complex use case , use `kubernetes` recommended
+- [x] Cross cloud platform support etc and container like `docker` or `kubernetes` for production and complex use case , use `kubernetes` recommended
 - [x] Etc 
 
 ## Simple Sample Policy

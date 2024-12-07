@@ -11,6 +11,9 @@ bootstrap_expect     = 1
 raft_protocol        = 3
 client_addr          = "0.0.0.0"
 bind_addr            = "0.0.0.0"
+auto_encrypt = {
+  allow_tls = true
+}
 
 ports {
   http     = -1
